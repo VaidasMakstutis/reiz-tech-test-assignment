@@ -1,0 +1,22 @@
+.countries-header {
+  .sort-and-filter-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 25px 0;
+  }
+}
+.countries {
+  list-style-type: none;
+  padding: 0;
+  .countries-list {
+    padding-bottom: 25px;
+    .countries-list-item {
+      padding: 10px;
+      background-color: rgb(204, 255, 204);
+    }
+    div span {
+      font-weight: bold;
+    }
+  }
+}
