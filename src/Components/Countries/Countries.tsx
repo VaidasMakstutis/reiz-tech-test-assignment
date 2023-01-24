@@ -13,12 +13,12 @@ const Countries = ({ countries, loading }: ILoadingProps) => {
   }
   return (
     <>
-      <ul className="countries">
+      <ul className="countries px-0 py-0">
         {countries &&
           countries.map((country, i) => {
             return (
-              <li className="countries-list" key={i}>
-                <div className="countries-list-item">
+              <li className="countries-list pb-4" key={i}>
+                <div className="countries-list-item px-2 py-2">
                   <div>
                     <span>Name: </span>
                     {country.name}

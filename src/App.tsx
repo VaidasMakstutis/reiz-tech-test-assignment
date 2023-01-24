@@ -3,9 +3,12 @@ import axios from "axios";
 import { TCountry } from "./api";
 import { API_URL } from "./api/shared/constants";
 import Countries from "./Components/Countries";
+import Sort from "./Components/Sort";
+import Filter from "./Components/Filter";
 
 const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
+  const [showCountries, setShowCountries] = useState<TCountry[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,8 +26,16 @@ const App = () => {
     <div className="App">
       <section className="countries-header">
         <h2>Countries list</h2>
+        <div className="sort-and-filter-wrapper d-flex justify-content-between px-4 py-4">
+          <div>
+            <Sort setShowCountries={setShowCountries} countries={countries} />
+          </div>
+          <div>
+            <Filter setShowCountries={setShowCountries} countries={countries} />
+          </div>
+        </div>
       </section>
-      <Countries countries={countries} loading={loading} />
+      <Countries countries={showCountries.length ? showCountries : countries} loading={loading} />
     </div>
   );
 };
