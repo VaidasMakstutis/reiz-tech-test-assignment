@@ -39,10 +39,10 @@ const App = () => {
         <h2>Countries list</h2>
         <div className="sort-and-filter-wrapper d-flex justify-content-between px-4 py-4">
           <div>
-            <Sort setShowCountries={setShowCountries} countries={countries} />
+            <Sort setShowCountries={setShowCountries} countries={currentCountries} />
           </div>
           <div>
-            <Filter setShowCountries={setShowCountries} countries={countries} />
+            <Filter setShowCountries={setShowCountries} countries={currentCountries} />
           </div>
         </div>
       </section>
