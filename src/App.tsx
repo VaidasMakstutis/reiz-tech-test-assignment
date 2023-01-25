@@ -5,11 +5,14 @@ import { API_URL } from "./api/shared/constants";
 import Countries from "./Components/Countries";
 import Sort from "./Components/Sort";
 import Filter from "./Components/Filter";
+import Pagination from "./Components/Pagination";
 
 const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
   const [showCountries, setShowCountries] = useState<TCountry[]>([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage] = useState(20);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -21,6 +24,14 @@ const App = () => {
     };
     getCountries();
   }, []);
+
+  // Get current countries
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry);
+
+  // Change page
+  const paginate = (pageNumber: React.SetStateAction<number>) => setCurrentPage(pageNumber);
 
   return (
     <div className="App">
@@ -35,7 +46,8 @@ const App = () => {
           </div>
         </div>
       </section>
-      <Countries countries={showCountries.length ? showCountries : countries} loading={loading} />
+      <Countries countries={showCountries.length ? showCountries : currentCountries} loading={loading} />
+      <Pagination countriesPerPage={countriesPerPage} totalCountries={countries.length} paginate={paginate} />
     </div>
   );
 };
