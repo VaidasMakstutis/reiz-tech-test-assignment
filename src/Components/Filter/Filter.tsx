@@ -19,7 +19,7 @@ const Filter = ({ countries, setShowCountries }: IFilterProps) => {
   return (
     <div className="filter-options">
       <label>Filter options:</label>
-      <button id="filter-area" onClick={findCountriesSmallerThanLtu}>
+      <button id="filter-area" className="mx-3" onClick={findCountriesSmallerThanLtu}>
         Countries are smaller than Lithuania
       </button>
       <button id="filter-region" onClick={findCountriesInOceania}>
