@@ -7,28 +7,35 @@ import Sort from "./Components/Sort";
 import Filter from "./Components/Filter";
 import Pagination from "./Components/Pagination";
 
+const countriesPerPage = 10;
+
 const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
-  const [showCountries, setShowCountries] = useState<TCountry[]>([]);
+  const [filteredCountries, setFilteredCountries] = useState<TCountry[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [countriesPerPage] = useState(20);
+
+  const fetchCountries = async () => {
+    setLoading(true);
+    const res = await axios.get(API_URL);
+    const data: TCountry[] = res.data;
+    setCountries(data);
+    setFilteredCountries(data);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const getCountries = async () => {
-      setLoading(true);
-      const res = await axios.get(API_URL);
-      const data: TCountry[] = res.data;
-      setCountries([...data]);
-      setLoading(false);
-    };
-    getCountries();
+    fetchCountries();
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredCountries]);
 
   // Get current countries
   const indexOfLastCountry = currentPage * countriesPerPage;
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-  const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry);
+  const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
 
   // Change page
   const paginate = (pageNumber: React.SetStateAction<number>) => setCurrentPage(pageNumber);
@@ -37,17 +44,17 @@ const App = () => {
     <div className="App">
       <section className="countries-header">
         <h2>Countries list</h2>
-        <div className="sort-and-filter-wrapper d-flex justify-content-between px-4 py-4">
+        <div className="sort-and-filter-wrapper d-flex justify-content-between py-4">
           <div>
-            <Sort setShowCountries={setShowCountries} countries={currentCountries} />
+            <Sort setShowCountries={setFilteredCountries} countries={countries} />
           </div>
           <div>
-            <Filter setShowCountries={setShowCountries} countries={currentCountries} />
+            <Filter setShowCountries={setFilteredCountries} countries={countries} />
           </div>
         </div>
       </section>
-      <Countries countries={showCountries.length ? showCountries : currentCountries} loading={loading} />
-      <Pagination countriesPerPage={countriesPerPage} totalCountries={countries.length} paginate={paginate} />
+      <Countries countries={currentCountries} loading={loading} />
+      <Pagination countriesPerPage={countriesPerPage} totalCountries={filteredCountries.length} paginate={paginate} />
     </div>
   );
 };

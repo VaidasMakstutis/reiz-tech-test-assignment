@@ -13,13 +13,13 @@ const Pagination = ({ countriesPerPage, totalCountries, paginate }: IPaginationP
   }
 
   return (
-    <nav>
-      <ul className="pagination justify-content-center">
+    <nav className="px-3">
+      <ul className="pagination d-flex flex-wrap">
         {pageNumbers.map(number => (
           <li key={number} className="page-item mb-5">
-            <a onClick={() => paginate(number)} href="!#" className="page-link">
+            <button onClick={() => paginate(number)} className="page-link">
               {number}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
