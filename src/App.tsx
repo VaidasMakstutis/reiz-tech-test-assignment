@@ -44,7 +44,7 @@ const App = () => {
     <div className="App">
       <section className="countries-header">
         <h2>Countries list</h2>
-        <div className="sort-and-filter-wrapper d-flex justify-content-between py-4">
+        <div className="sort-and-filter-wrapper d-flex justify-content-between align-items-center py-4">
           <div>
             <Sort setShowCountries={setFilteredCountries} countries={countries} />
           </div>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
 import { TCountry } from "../../api";
 
 type IFilterProps = {
@@ -7,24 +8,31 @@ type IFilterProps = {
 };
 
 const Filter = ({ countries, setShowCountries }: IFilterProps) => {
+  const [filterByRegion, setFilterByRegion] = useState("");
+
   const findCountriesSmallerThanLtu = () => {
     const areaOfLtu = 65300;
     setShowCountries(countries.filter(country => country.area < areaOfLtu));
   };
 
-  const findCountriesInOceania = () => {
-    setShowCountries(countries.filter(country => country.region === "Oceania"));
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = event => {
+    setFilterByRegion(event.target.value);
+    setShowCountries(() => countries.filter(country => country.region.includes(event.target.value)));
   };
 
   return (
-    <div className="filter-options">
-      <label>Filter options:</label>
+    <div className="filter-options d-inline-flex">
       <button id="filter-area" className="mx-3" onClick={findCountriesSmallerThanLtu}>
         Countries are smaller than Lithuania
       </button>
-      <button id="filter-region" onClick={findCountriesInOceania}>
-        Countries are in Oceania
-      </button>
+      <Form.Select aria-label="Default select example" value={filterByRegion} onChange={handleChange}>
+        <option value="">Filter countries by region...</option>
+        <option value="Americas">Americas</option>
+        <option value="Asia">Asia</option>
+        <option value="Africa">Africa</option>
+        <option value="Europe">Europe</option>
+        <option value="Oceania">Oceania</option>
+      </Form.Select>
     </div>
   );
 };
