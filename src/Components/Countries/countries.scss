@@ -1,0 +1,11 @@
+.countries {
+  list-style-type: none;
+  .countries-list {
+    .countries-list-item {
+      background-color: #ccffcc;
+    }
+    div > span {
+      font-weight: 700;
+    }
+  }
+}
