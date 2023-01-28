@@ -25,18 +25,20 @@ const Filter = ({ countries, setShowCountries, areaRef, activeButton, setActiveB
   };
 
   return (
-    <div className="filter-options d-inline-flex">
-      <button ref={areaRef} id="filter-area" onClick={findCountriesSmallerThanLtu}>
+    <div className="filter-options d-flex inline-flex">
+      <button ref={areaRef} id="filter-area" type="button" onClick={findCountriesSmallerThanLtu}>
         Countries are smaller than Lithuania
       </button>
-      <Form.Select aria-label="Default select example" className="mx-3" value={filterByRegion} onChange={handleChange}>
-        <option value="">Filter countries by region...</option>
-        <option value="Americas">Americas</option>
-        <option value="Asia">Asia</option>
-        <option value="Africa">Africa</option>
-        <option value="Europe">Europe</option>
-        <option value="Oceania">Oceania</option>
-      </Form.Select>
+      <div>
+        <Form.Select aria-label="Default select example" value={filterByRegion} onChange={handleChange}>
+          <option value="">Filter countries by region...</option>
+          <option value="Americas">Americas</option>
+          <option value="Asia">Asia</option>
+          <option value="Africa">Africa</option>
+          <option value="Europe">Europe</option>
+          <option value="Oceania">Oceania</option>
+        </Form.Select>
+      </div>
     </div>
   );
 };
